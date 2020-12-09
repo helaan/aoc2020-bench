@@ -6,7 +6,7 @@ use aoc_henk::map_file;
 type AocExecFn = fn(usize, &[u8]) -> Option<String>;
 
 pub const EXECS: &[(&str, AocExecFn)] =
-    &[("Henk", aoc_henk::execute), ("Stefan", aoc_stefan::execute)];
+    &[("Henk", aoc_henk::execute), ("Stefan", aoc_stefan::execute), ("Michiel", aoc_michiel::execute)];
 
 fn main() -> IoResult<()> {
     let args = std::env::args();
