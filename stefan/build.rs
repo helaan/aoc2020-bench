@@ -2,19 +2,19 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
-    // Tell cargo to tell rustc where to find the stuff
+    let dst = cmake::build("stefan-code");
+
+    // Tell cargo to tell rustc where to find libstefan
     println!(
-        "cargo:rustc-link-search={}/stefan-code/build/",
-        env::current_dir().unwrap().to_str().unwrap()
+        "cargo:rustc-link-search={}", dst.display()
     );
     // Tell cargo to tell rustc to link the static libstefan
-    println!("cargo:rustc-link-lib=stefan");
+    println!("cargo:rustc-link-lib=static=stefan");
     // Also link the c++ standard library
     println!("cargo:rustc-link-lib=stdc++");
 
     // Tell cargo to invalidate the built crate whenever the wrapper changes
     println!("cargo:rerun-if-changed=stefan-code/include/stefan.h");
-    println!("cargo:rerun-if-changed=stefan-code/build/libstefan.a");
 
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for
