@@ -1,3 +1,9 @@
+[submodule "kanikhierallestypenvraagteken"]
+	path = henk
+	url = https://git.henkvdlaan.com/advent-of-code/aoc20/
 [submodule "michiel"]
 	path = michiel
 	url = https://git.webmichiel.nl/msvisser/AoC.git
+[submodule "stefan"]
+	path = stefan/stefan-code
+	url = https://github.com/satanja/AoC2020.git

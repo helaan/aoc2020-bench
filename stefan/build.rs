@@ -23,8 +23,6 @@ fn main() {
         // The input header we would like to generate
         // bindings for.
         .header("stefan-code/include/stefan.h")
-        // don't generate types from stdint.h
-        .blacklist_type("__.*_t")
         // Tell cargo to invalidate the built crate whenever any of the
         // included header files changed.
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
