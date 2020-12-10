@@ -10,7 +10,9 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
 const PROGRAMS: &[unsafe extern "C" fn(*const i8, i32, *mut *mut u8)] = &[
     aoc01,
-    //aoc02,
+    aoc02,
+    aoc03,
+    aoc04,
 ];
 
 pub fn execute(id: usize, data: &[u8]) -> Option<String> {
