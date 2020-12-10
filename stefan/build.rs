@@ -10,8 +10,10 @@ fn main() {
     );
     // Tell cargo to tell rustc to link the static libstefan
     println!("cargo:rustc-link-lib=static=stefan");
-    // Also link the c++ standard library
-    println!("cargo:rustc-link-lib=stdc++");
+    // Also link the c++ standard library under Linux
+    if cfg!(unix) {
+        println!("cargo:rustc-link-lib=stdc++");
+    }
 
     // Tell cargo to invalidate the built crate whenever the wrapper changes
     println!("cargo:rerun-if-changed=stefan-code/include/stefan.h");
