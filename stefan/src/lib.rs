@@ -13,7 +13,8 @@ const PROGRAMS: &[unsafe extern "C" fn(*const i8, i32, *mut *mut u8)] = &[
     aoc02,
     aoc03,
     aoc04,
-    aoc05
+    aoc05,
+    aoc06
 ];
 
 pub fn execute(id: usize, data: &[u8]) -> Option<String> {
