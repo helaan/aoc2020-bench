@@ -15,6 +15,10 @@ fn main() {
 
     // Tell cargo to invalidate the built crate whenever the wrapper changes
     println!("cargo:rerun-if-changed=stefan-code/include/stefan.h");
+    // Also rebuild when a source file was changed
+    for i in 1..=25 {
+        println!("cargo:rerun-if-changed=stefan-code/{:02}/main.cpp", i);
+    }
 
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for
