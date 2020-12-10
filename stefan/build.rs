@@ -1,13 +1,32 @@
 use std::env;
 use std::path::PathBuf;
+use std::path::Path;
+use std::fs;
+
+const REBUILD_BLOCKLIST: &[&str] = &[".git", "build"];
+
+fn visit_dir(dir: &Path) -> std::io::Result<()> {
+    for entry in fs::read_dir(dir)? {
+        let entry = entry?;
+        let path = entry.path();
+        if path.is_dir() {
+            if !REBUILD_BLOCKLIST.contains(&path.file_name().unwrap().to_str().unwrap()) {
+                visit_dir(&path)?;
+            }
+        } else {
+            println!("cargo:rerun-if-changed={}", fs::canonicalize(path)?.display());
+        }
+    }
+    Ok(())
+}
 
 fn main() {
     let dst = cmake::build("stefan-code");
 
     // Tell cargo to tell rustc where to find libstefan
     println!(
-        "cargo:rustc-link-search={}", dst.display()
-    );
+            "cargo:rustc-link-search={}", dst.display()
+            );
     // Tell cargo to tell rustc to link the static libstefan
     println!("cargo:rustc-link-lib=static=stefan");
     // Also link the c++ standard library under Linux
@@ -15,12 +34,8 @@ fn main() {
         println!("cargo:rustc-link-lib=stdc++");
     }
 
-    // Tell cargo to invalidate the built crate whenever the wrapper changes
-    println!("cargo:rerun-if-changed=stefan-code/include/stefan.h");
-    // Also rebuild when a source file was changed
-    for i in 1..=25 {
-        println!("cargo:rerun-if-changed=stefan-code/{:02}/main.cpp", i);
-    }
+    // Tell cargo to invalidate the built crate whenever the C++ code changed
+    visit_dir(Path::new("./stefan-code/")).unwrap();
 
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for
