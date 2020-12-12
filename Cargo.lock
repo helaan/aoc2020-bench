@@ -68,6 +68,7 @@ dependencies = [
  "aoc-henk",
  "aoc-michiel",
  "aoc-stefan",
+ "criterion",
  "memmap",
 ]
 

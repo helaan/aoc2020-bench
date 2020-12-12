@@ -11,3 +11,4 @@ memmap = "0.7"
 aoc-henk = { path = "../henk" }
 aoc-stefan = { path = "../stefan" }
 aoc-michiel = { path = "../michiel" }
+criterion = "0.3.3"
